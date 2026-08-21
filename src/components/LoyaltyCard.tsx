@@ -1,0 +1,54 @@
+import { useLoyalty } from "../store/useLoyalty";
+import { tierForSpent, tierProgress } from "../lib/loyalty";
+import { formatNumber, formatPrice } from "../lib/format";
+import { ProgressBar } from "./ui/ProgressBar";
+
+interface Props {
+  onOpenCard?: () => void;
+}
+
+export function LoyaltyCard({ onOpenCard }: Props) {
+  const { balance, spent } = useLoyalty();
+  const tier = tierForSpent(spent);
+  const { progress, remaining, next } = tierProgress(spent);
+
+  return (
+    <button
+      onClick={onOpenCard}
+      className="w-full text-left rounded-[22px] p-5 bg-ink text-white relative overflow-hidden active:scale-[0.99] transition"
+    >
+      {/* лаймовое свечение */}
+      <div className="absolute -right-10 -top-12 w-44 h-44 rounded-full bg-lime/25 blur-2xl" />
+      <div className="relative">
+        <div className="flex items-start justify-between">
+          <div>
+            <div className="text-[13px] font-bold tracking-[0.14em] uppercase">золотое яблоко</div>
+            <div className="text-[12px] text-lime font-semibold mt-0.5 lowercase">
+              уровень {tier.name} · {Math.round(tier.cashback * 100)}% бонусами
+            </div>
+          </div>
+          <span className="text-[11px] font-semibold bg-lime text-ink rounded-full px-3 py-1">карта</span>
+        </div>
+
+        <div className="mt-5 flex items-baseline gap-1.5">
+          <span className="text-[34px] font-extrabold leading-none">{formatNumber(balance)}</span>
+          <span className="text-[13px] text-white/70 font-medium">бонусов</span>
+        </div>
+
+        <div className="mt-4">
+          <ProgressBar value={progress} tone="lime" />
+          <div className="flex justify-between text-[11.5px] text-white/70 mt-2 lowercase">
+            {next ? (
+              <>
+                <span>до {next.name}</span>
+                <span>ещё {formatPrice(remaining)}</span>
+              </>
+            ) : (
+              <span>максимальный уровень достигнут ✦</span>
+            )}
+          </div>
+        </div>
+      </div>
+    </button>
+  );
+}

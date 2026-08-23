@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 
 interface Props {
   open: boolean;
@@ -17,7 +18,8 @@ export function BottomSheet({ open, onClose, children }: Props) {
 
   if (!open) return null;
 
-  return (
+  // Портал в body — чтобы оверлей не попадал под transform-предка (animate-fade-up)
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-end justify-center">
       <div className="absolute inset-0 bg-black/40 animate-fade-up" onClick={onClose} />
       <div
@@ -30,6 +32,7 @@ export function BottomSheet({ open, onClose, children }: Props) {
         </div>
         {children}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

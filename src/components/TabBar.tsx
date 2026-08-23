@@ -35,7 +35,7 @@ export function TabBar() {
   const count = useCart((s) => s.count());
 
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-app bg-white/95 backdrop-blur border-t border-black/[0.06] z-40 pb-[var(--tg-safe-bottom)]">
+    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-app bg-white border-t border-black/[0.06] z-40 pb-[var(--tg-safe-bottom)]">
       <div className="flex items-stretch h-[64px]">
         {tabs.map((t) => {
           const active = current === t.screen;

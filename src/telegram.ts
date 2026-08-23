@@ -19,8 +19,11 @@ interface TgWebApp {
   themeParams: Record<string, string>;
   isExpanded: boolean;
   viewportStableHeight: number;
+  version?: string;
   ready: () => void;
   expand: () => void;
+  requestFullscreen?: () => void;
+  openTelegramLink?: (url: string) => void;
   close: () => void;
   setHeaderColor: (color: string) => void;
   setBackgroundColor: (color: string) => void;
@@ -73,6 +76,8 @@ export function initTelegram() {
   wa.ready();
   wa.expand();
   try {
+    // Полноэкранный режим (Bot API 8.0+); на старых клиентах просто expand
+    if (parseFloat(wa.version ?? "6.0") >= 8.0) wa.requestFullscreen?.();
     wa.setHeaderColor("#ffffff");
     wa.setBackgroundColor("#ffffff");
     wa.disableVerticalSwipes?.();
@@ -102,4 +107,40 @@ export const backButton = {
 
 export function closeApp() {
   wa?.close();
+}
+
+const BOT = "goldenaapple_bot";
+
+// Реферальный deep link и шеринг через Telegram
+export function referralLink(): string {
+  return `https://t.me/${BOT}?startapp=ref_${tgUser.id}`;
+}
+
+export function shareReferral() {
+  const text = "залетай в золотое яблоко 🍏 дарю тебе +500 бонусов на первую покупку по моей ссылке";
+  const url = `https://t.me/share/url?url=${encodeURIComponent(referralLink())}&text=${encodeURIComponent(text)}`;
+  if (wa?.openTelegramLink) wa.openTelegramLink(url);
+  else window.open(url, "_blank");
+}
+
+export async function copyText(text: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    // фолбэк для старых webview
+    try {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      return true;
+    } catch {
+      return false;
+    }
+  }
 }

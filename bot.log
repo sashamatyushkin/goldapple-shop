@@ -2,6 +2,4 @@
 > goldapple-miniapp@0.1.0 bot
 > node --env-file=.env bot/bot.js
 
-⚠ WEBAPP_URL не задан или не публичный https — бот запустится, команды работают,
-  но кнопка «открыть магазин» появится только после деплоя Mini App на публичный HTTPS.
 ✔ бот @goldenaapple_bot запущен (long-polling)

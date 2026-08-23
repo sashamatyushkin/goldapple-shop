@@ -111,7 +111,7 @@ export function CheckoutScreen() {
       </div>
 
       {/* итог */}
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-app bg-white/95 backdrop-blur border-t border-black/[0.06] p-4 pb-[calc(16px+var(--tg-safe-bottom))] z-40">
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-app bg-white border-t border-black/[0.06] p-4 pb-[calc(16px+var(--tg-safe-bottom))] z-40">
         <div className="flex justify-between text-[13px] text-black/55 mb-1">
           <span className="lowercase">начислим бонусами</span>
           <span className="text-lime-dark font-bold">+{formatNumber(willEarn)}</span>

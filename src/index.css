@@ -49,6 +49,20 @@ body {
   animation: fadeUp 0.28s ease both;
 }
 
+@keyframes cardIn {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) scale(0.62) rotateY(85deg);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) scale(1) rotateY(0deg);
+  }
+}
+.animate-card-in {
+  animation: cardIn 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
 @keyframes sheetUp {
   from {
     transform: translateY(100%);

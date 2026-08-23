@@ -61,7 +61,7 @@ export function ProductScreen({ productId }: { productId: string }) {
       </div>
 
       {/* нижняя панель действий */}
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-app bg-white/95 backdrop-blur border-t border-black/[0.06] p-4 pb-[calc(16px+var(--tg-safe-bottom))] z-40 flex gap-3">
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-app bg-white border-t border-black/[0.06] p-4 pb-[calc(16px+var(--tg-safe-bottom))] z-40 flex gap-3">
         <Button
           variant="lime"
           full

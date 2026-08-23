@@ -29,6 +29,16 @@ export interface LoyaltyState {
 
 export const initialLoyalty: LoyaltyState = { balance: 0, spent: 0, history: [] };
 
+// Демо-сид: клиент уже в статусе gold — чтобы на воркшопе сразу видеть, как работает уровень.
+export const demoSeed: LoyaltyState = {
+  balance: 1240,
+  spent: 14200,
+  history: [
+    { id: "M-10024881", date: Date.now() - 1000 * 60 * 60 * 24 * 3, amount: 9890, earned: 494, items: 1 },
+    { id: "M-10021547", date: Date.now() - 1000 * 60 * 60 * 24 * 18, amount: 4310, earned: 215, items: 2 },
+  ],
+};
+
 export function tierForSpent(spent: number): Tier {
   let current = TIERS[0];
   for (const t of TIERS) if (spent >= t.threshold) current = t;

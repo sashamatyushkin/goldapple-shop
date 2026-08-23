@@ -7,18 +7,28 @@ interface Props {
   onOpenCard?: () => void;
 }
 
+// Анимацию влёта проигрываем один раз за сессию — чтобы при переключении
+// вкладок карта не «крутилась» повторно и не лагала на слабых телефонах.
+let introPlayed = false;
+
 export function LoyaltyCard({ onOpenCard }: Props) {
   const { balance, spent } = useLoyalty();
   const tier = tierForSpent(spent);
   const { progress, remaining, next } = tierProgress(spent);
 
+  const animate = !introPlayed;
+  if (!introPlayed) introPlayed = true;
+
   return (
     <button
       onClick={onOpenCard}
-      className="w-full text-left rounded-[22px] p-5 bg-ink text-white relative overflow-hidden active:scale-[0.99] transition"
+      className={`${animate ? "animate-card-in" : ""} w-full text-left rounded-[22px] p-5 bg-ink text-white relative overflow-hidden active:scale-[0.99] transition`}
     >
-      {/* лаймовое свечение */}
-      <div className="absolute -right-10 -top-12 w-44 h-44 rounded-full bg-lime/25 blur-2xl" />
+      {/* лаймовое свечение — дешёвый радиальный градиент вместо blur-фильтра */}
+      <div
+        className="absolute -right-12 -top-14 w-48 h-48 rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(198,244,50,0.30), transparent 70%)" }}
+      />
       <div className="relative">
         <div className="flex items-start justify-between">
           <div>

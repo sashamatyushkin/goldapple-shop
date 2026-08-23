@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLoyalty } from "../store/useLoyalty";
 import { LoyaltyCard } from "../components/LoyaltyCard";
 import { LoyaltyCardSheet } from "../components/LoyaltyCardSheet";
+import { ReferralCard } from "../components/ReferralCard";
 import { TIERS, tierForSpent } from "../lib/loyalty";
 import { formatNumber, formatPrice } from "../lib/format";
 import { tgUser } from "../telegram";
@@ -30,6 +31,11 @@ export function ProfileScreen() {
 
       <div className="px-4 mt-4">
         <LoyaltyCard onOpenCard={() => setCardOpen(true)} />
+      </div>
+
+      {/* реферальная программа */}
+      <div className="px-4 mt-3">
+        <ReferralCard />
       </div>
 
       {/* лестница уровней */}

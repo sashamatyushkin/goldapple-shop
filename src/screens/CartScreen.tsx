@@ -58,7 +58,7 @@ export function CartScreen() {
       </div>
 
       {/* итог + оформить */}
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-app bg-white/95 backdrop-blur border-t border-black/[0.06] p-4 pb-[calc(16px+var(--tg-safe-bottom))] z-40">
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-app bg-white border-t border-black/[0.06] p-4 pb-[calc(16px+var(--tg-safe-bottom))] z-40">
         <div className="flex items-center justify-between mb-3">
           <span className="text-[14px] text-black/55 lowercase">сумма заказа</span>
           <span className="text-[20px] font-extrabold">{formatPrice(total)}</span>

@@ -21,7 +21,10 @@ export function LoyaltyCardSheet({ open, onClose }: Props) {
         <div className="text-center text-[15px] font-bold lowercase mb-4">карта клуба</div>
 
         <div className="rounded-[22px] bg-ink text-white p-5 relative overflow-hidden">
-          <div className="absolute -right-10 -top-12 w-44 h-44 rounded-full bg-lime/25 blur-2xl" />
+          <div
+            className="absolute -right-10 -top-12 w-44 h-44 rounded-full pointer-events-none"
+            style={{ background: "radial-gradient(circle, rgba(198,244,50,0.28), transparent 70%)" }}
+          />
           <div className="relative flex items-start justify-between">
             <div>
               <div className="text-[13px] font-bold tracking-[0.14em] uppercase">золотое яблоко</div>
@@ -37,7 +40,7 @@ export function LoyaltyCardSheet({ open, onClose }: Props) {
               <div className="text-[26px] font-extrabold leading-none">{formatNumber(balance)} б</div>
             </div>
             <div className="bg-white rounded-xl p-1.5 w-24 h-24">
-              <QrCode value={`GA-${cardId}`} className="w-full h-full" />
+              <QrCode value={`https://t.me/goldenaapple_bot?startapp=card_${cardId}`} className="w-full h-full" />
             </div>
           </div>
         </div>

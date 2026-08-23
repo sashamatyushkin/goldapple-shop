@@ -32,7 +32,7 @@ export default function App() {
     <div className="min-h-full max-w-app mx-auto bg-white relative">
       {/* Топ-бар для вложенных экранов (работает и вне Telegram) */}
       {!isRoot && (
-        <div className="sticky top-0 z-30 bg-white/95 backdrop-blur">
+        <div className="sticky top-0 z-30 bg-white">
           <div className="h-[calc(48px+var(--tg-safe-top))] pt-[var(--tg-safe-top)] flex items-center px-2">
             <button
               onClick={pop}

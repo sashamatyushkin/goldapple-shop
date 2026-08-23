@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Product, Shape } from "../data/products";
 
 interface Props {
@@ -5,12 +6,29 @@ interface Props {
   className?: string;
 }
 
-// Чистые векторные packshot'ы под тип упаковки — чёткие при любом разрешении.
+// Реальное hi-res фото с goldapple.ru; при ошибке — векторный packshot.
 export function ProductImage({ product, className = "" }: Props) {
-  const { tone, cap, body, id, brand } = product;
-  const bg = `bg-${id}`;
-  const hi = "rgba(255,255,255,0.55)";
+  const [failed, setFailed] = useState(false);
+  const src = `${import.meta.env.BASE_URL}products/${product.id}.webp`;
 
+  if (!failed) {
+    return (
+      <div className={`relative overflow-hidden bg-white ${className}`}>
+        <img
+          src={src}
+          alt={`${product.brand} ${product.name}`}
+          loading="lazy"
+          onError={() => setFailed(true)}
+          className="w-full h-full object-contain p-1.5"
+        />
+      </div>
+    );
+  }
+
+  // Фолбэк: векторный packshot
+  const { tone, cap, body, id, brand } = product;
+  const bg = `g-${id}`;
+  const hi = "rgba(255,255,255,0.55)";
   return (
     <div className={`relative overflow-hidden ${className}`}>
       <svg viewBox="0 0 200 240" className="w-full h-full" preserveAspectRatio="xMidYMid slice">
@@ -21,7 +39,6 @@ export function ProductImage({ product, className = "" }: Props) {
           </linearGradient>
         </defs>
         <rect width="200" height="240" fill={`url(#${bg})`} />
-        {/* мягкая тень под товаром */}
         <ellipse cx="100" cy="212" rx="46" ry="9" fill="rgba(0,0,0,0.10)" />
         {renderShape(product.shape, cap, body, hi)}
       </svg>

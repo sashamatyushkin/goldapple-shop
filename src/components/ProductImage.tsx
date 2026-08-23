@@ -19,7 +19,7 @@ export function ProductImage({ product, className = "" }: Props) {
           alt={`${product.brand} ${product.name}`}
           loading="lazy"
           onError={() => setFailed(true)}
-          className="w-full h-full object-contain p-1.5"
+          className="w-full h-full object-cover"
         />
       </div>
     );
